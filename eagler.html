@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eaglercraft 1.12.2 u3</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #000;
+      color: #fff;
+      font-family: sans-serif;
+    }
+    #loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loading">Loading content from raw GitHub link...<br><small>(This may take a moment due to file size)</small></div>
+  <iframe id="gameFrame" allow="autoplay; fullscreen; clipboard-write; camera; microphone" allowfullscreen></iframe>
+
+  <script>
+    const rawUrl = 'https://raw.githubusercontent.com/Ale7208/EaglercraftX-1.12.2-u3/refs/heads/main/Eaglercraft%201.12.2%20u3%20WASM-GC.html';
+
+    fetch(rawUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(htmlContent => {
+        document.getElementById('loading').style.display = 'none';
+        
+        const frame = document.getElementById('gameFrame');
+        const frameDoc = frame.contentWindow.document;
+        frameDoc.open();
+        frameDoc.write(htmlContent);
+        frameDoc.close();
+      })
+      .catch(error => {
+        document.getElementById('loading').innerText = 'Failed to load content from raw link: ' + error.message;
+      });
+  </script>
+
+</body>
+</html>
